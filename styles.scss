@@ -1,0 +1,18 @@
+@use './style-dependencies/Mixins' as *;
+@use './style-dependencies/Variables' as v;
+
+
+
+.cell {
+    transition: all 200ms ease;
+    &:hover {
+        transform: translateY(-3px);
+        stroke: black;
+        stroke-width: 1px;
+        // fill: white;
+    }
+}
+
+.legend-text {
+    @include text-styles(.5rem, 100);
+}

@@ -1,0 +1,14 @@
+.cell {
+  transition: all 200ms ease;
+}
+.cell:hover {
+  transform: translateY(-3px);
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.legend-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.5rem;
+  font-weight: 100;
+}/*# sourceMappingURL=styles.css.map */
