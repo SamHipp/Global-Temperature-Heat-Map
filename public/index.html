@@ -8,6 +8,29 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="styles.css">
+    <script>
+        // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBzDbw_XZRhNJW5qMhU18xkSRVfHFhLxNI",
+  authDomain: "global-temp-heat-map.firebaseapp.com",
+  projectId: "global-temp-heat-map",
+  storageBucket: "global-temp-heat-map.appspot.com",
+  messagingSenderId: "589985277701",
+  appId: "1:589985277701:web:7cf7db9b6b89eccaeff96c",
+  measurementId: "G-8ZJFKDPZQ5"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+    </script>
 </head>
 <body>
     <div class="app-container">

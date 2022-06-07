@@ -21,6 +21,12 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
                     ['hsl(0, 100%, 50%', d3.max(data, d => d[2])]
                     ];
     const baseTemp = 8.66
+    const tooltip = d3.select('#graph')
+        .append('div')
+        .attr('class', 'tooltip')
+        .attr('id', 'tooltip')
+        .style('visibility', 'hidden')
+        .style('position', 'absolute');
 
         // Adding the graph svg________________________________
     const svg = d3.select('#graph')
@@ -34,13 +40,13 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
         .domain([d3.min(data, d => d[0]), d3.max(data, d => d[0])])
         .range([wPadding, graphWidth + wPadding]);
     const yScale = d3.scaleLinear()
-        .domain([d3.max(data, d => d[1]), 0])
+        .domain([1, d3.max(data, d => d[1]) + 1])
         .range([0, graphHeight]);
     const xAxis = d3.axisBottom(xScale)
         .tickFormat(d3.format('0a'));
     const yAxis = d3.axisLeft(yScale)
         .tickFormat((month) => {
-            if (month > 0) {
+            if (month < 13) {
             let date = new Date(0);
             date.setUTCMonth(month);
             let format = d3.timeFormat('%B');
@@ -71,9 +77,25 @@ fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
         .attr('class', 'cell')
         .attr('data-month', d => d[1])
         .attr('data-year', d => d[0])
-        .attr('data-temp', d => 8.66 + d[2])
+        .attr('data-temp', d => baseTemp + d[2])
         // Adding Tooltip
-        
+        .on('mouseover', (item, d) => {
+            let date = new Date(0);
+            date.setUTCMonth(d[1]);
+            let format = d3.timeFormat('%B');
+            
+            tooltip.html(
+                `<p>${format(date)} ${d[0]}:</p>
+                <p>${Math.floor(100 * (baseTemp + d[2])) / 100} &deg;C</p>`
+            )
+            return tooltip.style('visibility', 'visible');
+        })
+        .on('mousemove', (item, d) => {
+            return tooltip.style("top", (item.pageY-25)+"px").style("left",(item.pageX+25)+"px");
+        })
+        .on('mouseout', (item, d) => {
+            return tooltip.style('visibility', 'hidden');
+        })
 
     // Legend__________________________________________________________________
     svg.append('g')
